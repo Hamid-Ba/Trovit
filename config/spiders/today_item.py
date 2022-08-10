@@ -84,6 +84,7 @@ class TodayItemSpider(scrapy.Spider):
             title = item_details.xpath('.//descendant::div[@class="item-title"]/span/text()').get()
             desc = item_details.xpath('.//descendant::div[@class="item-description"]/p/text()').get()
             price = item_details.xpath('.//descendant::span[@class="actual-price"]/text()').get()
+            link = item_details.xpath('.//@href').get()
 
             room_count = item_details.xpath('.//descendant::div[@class="item-property item-rooms"]/span/text()').get()
             bathroom_count = item_details.xpath('.//descendant::div[@class="item-property item-baths"]/span/text()').get()
@@ -101,7 +102,8 @@ class TodayItemSpider(scrapy.Spider):
                 "title" : title,
                 "desc" : desc,
                 "price" : price,
-                "date" : published_date
+                "date" : published_date,
+                "url" : link
             }
             # //a[@class='trovit-button no-background next']
             if room_count:
